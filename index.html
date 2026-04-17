@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Utah Veteran Property Tax Exemption Finder</title>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-02DEPTVN9N"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-02DEPTVN9N');
+</script>
+
+<!-- Clarity -->
+  <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "wd8nr2575f");
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Serif+4:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --navy: #0a1628;
+    --deep-blue: #1a2f5e;
+    --gold: #c9a84c;
+    --gold-light: #e8c96e;
+    --red: #b5272a;
+    --cream: #f5f0e8;
+    --warm-white: #faf8f4;
+    --text: #1a1a1a;
+    --text-muted: #3a3a3a;
+    --border: #d4c9b0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Source Serif 4', Georgia, serif;
+    background: var(--warm-white);
+    color: var(--text);
+    line-height: 1.7;
+  }
+
+  /* HEADER */
+  header {
+    background: var(--navy);
+    color: white;
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 40px,
+      rgba(201,168,76,0.04) 40px,
+      rgba(201,168,76,0.04) 80px
+    );
+  }
+  .header-inner {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 60px 32px 56px;
+    position: relative;
+  }
+  .state-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(201,168,76,0.15);
+    border: 1px solid rgba(201,168,76,0.4);
+    color: var(--gold-light);
+    font-family: 'Source Serif 4', georgia, serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 2px;
+    margin-bottom: 24px;
+  }
+  .state-badge::before { content: '★'; }
+  h1 {
+    font-family: 'Playfair Display', georgia, serif;
+    font-size: clamp(2.2rem, 5vw, 3.6rem);
+    font-weight: 900;
+    line-height: 1.1;
+    color: white;
+    margin-bottom: 20px;
+  }
+  h1 span { color: var(--gold-light); }
+  .header-sub {
+    font-size: 1.1rem;
+    color: rgba(255,255,255,0.75);
+    max-width: 560px;
+    font-weight: 300;
+    line-height: 1.65;
+  }
+  .header-divider {
+    width: 60px;
+    height: 3px;
+    background: var(--gold);
+    margin: 28px 0 0;
+  }
+
+  /* NAV PILLS */
+  nav {
+    background: var(--deep-blue);
+    border-bottom: 1px solid rgba(201,168,76,0.2);
+  }
+  nav ul {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 32px;
+    list-style: none;
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+  }
+  nav ul li a {
+    display: block;
+    padding: 14px 20px;
+    color: rgba(255,255,255,0.65);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  nav ul li a:hover {
+    color: var(--gold-light);
+    border-bottom-color: var(--gold);
+  }
+
+  /* MAIN */
+  main {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 32px 80px;
+  }
+
+  /* ALERT BANNER */
+  .alert-banner {
+    background: #c9a84c30;
+    border-left: 4px solid var(--gold);
+    padding: 16px 20px;
+    margin: 36px 0 0;
+    border-radius: 0 4px 4px 0;
+    font-size: 0.9rem;
+  }
+  .alert-banner strong { color: var(--deep-blue); }
+
+  /* SECTION HEADINGS */
+  .section-title {
+    font-family: 'Playfair Display', georgia, serif;
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin: 56px 0 8px;
+  }
+  .section-subtitle {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin-bottom: 28px;
+  }
+  .section-rule {
+    width: 40px;
+    height: 2px;
+    background: var(--gold);
+    margin: 10px 0 24px;
+  }
+
+  /* CHECKER CARD */
+  .checker-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 36px;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+  }
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  @media (max-width: 560px) { .form-grid { grid-template-columns: 1fr; } }
+  .form-group { display: flex; flex-direction: column; gap: 6px; }
+  .form-group.full { grid-column: 1 / -1; }
+  label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  select, input[type="number"] {
+    padding: 11px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: 4px;
+    font-family: 'Source Serif 4', serif;
+    font-size: 0.95rem;
+    color: var(--text);
+    background: var(--warm-white);
+    transition: border-color 0.2s;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%235a5a5a' d='M6 8L0 0h12z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    cursor: pointer;
+  }
+  input[type="number"] {
+    background-image: none;
+  }
+  select:focus, input:focus {
+    outline: none;
+    border-color: var(--deep-blue);
+  }
+  .calc-btn {
+    margin-top: 8px;
+    padding: 15px 32px;
+    background: var(--navy);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-family: 'Source Serif 4', georgia, serif;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    letter-spacing: 0.03em;
+  }
+  .calc-btn:hover { background: var(--deep-blue); transform: translateY(-1px); }
+  .calc-btn:active { transform: translateY(0); }
+
+  /* RESULTS */
+  #result { margin-top: 28px; display: none; }
+  .result-box {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 28px 32px;
+  }
+  .result-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+  }
+  .result-title {
+    font-family: 'Source Serif 4', georgia, serif;
+    font-size: 1.3rem;
+    color: var(--navy);
+    font-weight: 700; 
+  }
+  .savings-badge {
+    background: var(--navy);
+    color: var(--gold-light);
+    font-family: 'Source Serif 4', georgia, serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    padding: 10px 20px;
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+  .result-detail { margin-bottom: 12px; font-size: 0.95rem; }
+  .result-detail strong { color: var(--navy); }
+  .result-steps { margin-top: 20px; }
+  .result-steps h4 {
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 14px;
+  }
+  .steps-list { list-style: none; counter-reset: steps; }
+  .steps-list li {
+    counter-increment: steps;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    margin-bottom: 12px;
+    font-size: 0.95rem;
+  }
+  .steps-list li::before {
+    content: counter(steps);
+    min-width: 26px;
+    height: 26px;
+    background: var(--navy);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    margin-top: 2px;
+    flex-shrink: 0;
+  }
+  .steps-list a { color: var(--deep-blue); }
+  .iu-note {
+    background: #e8f0ff;
+    border-left: 3px solid var(--deep-blue);
+    padding: 12px 16px;
+    font-size: 0.9rem;
+    margin: 16px 0;
+    border-radius: 0 4px 4px 0;
+  }
+  .stack-note {
+    background: #fff8e6;
+    border: 1px solid var(--gold);
+    border-radius: 4px;
+    padding: 14px 18px;
+    font-size: 0.9rem;
+    margin-top: 20px;
+  }
+
+  /* BENEFIT PILLS */
+  .pills { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 0; }
+  .pill {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+  }
+  .pill-blue { background: #dce8ff; color: #1a3a8a; }
+  .pill-gold { background: #fdf0d0; color: #7a5c00; }
+  .pill-red { background: #fde8e8; color: #8a1a1a; }
+  .pill-green { background: #e0f5e8; color: #1a6a3a; }
+
+  /* COUNTIES TABLE */
+  .county-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+    margin-top: 8px;
+  }
+  .county-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  margin-top: 8px;
+  border: 1px solid var(--border);
+}
+  .county-table th {
+    background: var(--navy);
+    color: var(--gold-light);
+    text-align: left;
+    padding: 12px 16px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .county-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .county-table tr:nth-child(even) td { background: var(--cream); }
+  .county-table a { color: var(--deep-blue); }
+
+  /* FAQ */
+  .faq-item {
+    border: 1px solid var(--border);
+    padding: 20px 20px;
+    margin-bottom: -1px;
+  }
+  .faq-q {
+    font-family: 'Playfair Display', georgia, serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--navy);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+  }
+  .faq-q::after { content: '+'; font-size: 1.4rem; color: var(--gold); flex-shrink: 0; }
+  .faq-q.open::after { content: '−'; }
+  .faq-a {
+    display: none;
+    padding-top: 14px;
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    line-height: 1.75;
+  }
+  .faq-a.open { display: block; }
+
+  /* ABOUT */
+  .about-section {
+    background: var(--navy);
+    color: white;
+    border-radius: 6px;
+    padding: 44px;
+    margin-top: 56px;
+    position: relative;
+    overflow: hidden;
+  }
+  .about-section::before {
+    content: '★';
+    position: absolute;
+    top: -20px;
+    right: 40px;
+    font-size: 8rem;
+    color: rgba(201,168,76,0.07);
+    line-height: 1;
+  }
+  .about-section h2 {
+    font-family: 'Playfair Display', georgia, serif;
+    font-size: 1.6rem;
+    color: var(--gold-light);
+    margin-bottom: 20px;
+  }
+  .about-section p {
+    font-size: 0.97rem;
+    color: rgba(255,255,255,0.82);
+    line-height: 1.8;
+    margin-bottom: 16px;
+    max-width: 680px;
+  }
+  .about-section p:last-child { margin-bottom: 0; }
+  .about-sig {
+    margin-top: 24px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(201,168,76,0.3);
+    color: rgba(255,255,255,0.5);
+    font-size: 0.85rem;
+    font-style: italic;
+  }
+
+  /* DISCLAIMER */
+  .disclaimer {
+    margin-top: 40px;
+    padding: 20px 24px;
+    background: #f5f5f5;
+    border-radius: 4px;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--navy);
+    color: rgba(255,255,255,0.5);
+    padding: 32px;
+    text-align: center;
+    font-size: 0.83rem;
+    margin-top: 60px;
+  }
+  footer a { color: var(--gold-light); text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+
+  /* RESPONSIVE */
+  @media (max-width: 600px) {
+    main { padding: 0 20px 60px; }
+    .header-inner { padding: 40px 20px 40px; }
+    nav ul { padding: 0 20px; }
+    .checker-card { padding: 24px 20px; }
+    .about-section { padding: 32px 24px; }
+    .result-box { padding: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="state-badge">State of Utah</div>
+    <h1>Utah Veteran<br><span>Property Tax Relief</span></h1>
+    <p class="header-sub">Find every property tax exemption you qualify for — and learn exactly how to claim it. Free, independent, and built for Utah veterans and their families.</p>
+    <div class="header-divider"></div>
+  </div>
+</header>
+
+<nav>
+  <ul>
+    <li><a href="#checker">Eligibility Checker</a></li>
+    <li><a href="#counties">County Directory</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#about">Our Story</a></li>
+  </ul>
+</nav>
+
+<main>
+
+  <div class="alert-banner">
+    <strong>2026 Deadline:</strong> Applications must be filed with your county assessor by <strong>September 1, 2026</strong> to affect your 2026 tax year. Don't miss it.
+  </div>
+
+  <!-- CHECKER -->
+  <section id="checker">
+    <h2 class="section-title">Eligibility Checker</h2>
+    <div class="section-rule"></div>
+    <p class="section-subtitle">Answer four questions to see every program you qualify for and your estimated annual savings.</p>
+
+    <div class="checker-card">
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="status">Who is applying?</label>
+          <select id="status">
+            <option value="">— Select —</option>
+            <option value="veteran">Veteran (I served)</option>
+            <option value="spouse">Surviving Spouse of Veteran</option>
+            <option value="blind">Person with Legal Blindness</option>
+            <option value="senior">Senior / Low-Income Homeowner</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="rating">Disability Rating</label>
+          <select id="rating">
+            <option value="">— Select —</option>
+            <option value="0">No VA disability rating</option>
+            <option value="10">10% – 29%</option>
+            <option value="30">30% – 49%</option>
+            <option value="50">50% – 69%</option>
+            <option value="70">70% – 89%</option>
+            <option value="90">90% – 99%</option>
+            <option value="100">100% (Total)</option>
+            <option value="iu">Individual Unemployability (IU)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="proptype">Property Type</label>
+          <select id="proptype">
+            <option value="">— Select —</option>
+            <option value="home">Primary Residence (home I own)</option>
+            <option value="personal">Personal Property / Vehicle</option>
+            <option value="rent">I rent / don't own property</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="homevalue">Estimated Home Value ($)</label>
+          <input type="number" id="homevalue" placeholder="e.g. 450000" min="0">
+        </div>
+      </div>
+      <div style="margin-top:24px;">
+        <button class="calc-btn" onclick="checkEligibility()">Calculate My Exemption →</button>
+      </div>
+
+      <div id="result"></div>
+    </div>
+  </section>
+
+  <!-- COUNTY DIRECTORY -->
+  <section id="counties">
+    <h2 class="section-title">County Directory</h2>
+    <div class="section-rule"></div>
+    <p class="section-subtitle">Submit Form PT-025 to your county assessor's office. Most counties accept mail or in-person applications; several offer online submission.</p>
+
+    <div style="overflow-x:auto;">
+      <table class="county-table">
+        <thead>
+          <tr>
+            <th>County</th>
+            <th>Phone</th>
+            <th>How to Apply</th>
+            <th>Website</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tbody>
+  <tr><td><strong>Cache (Logan)</strong></td><td>(435) 755-1590</td><td>Mail, In-person</td><td><a href="https://www.cachecounty.gov/assessor/" target="_blank">cachecounty.gov</a></td></tr>
+  <tr><td><strong>Davis</strong></td><td>(801) 451-3250</td><td>Mail, In-person</td><td><a href="https://www.daviscountyutah.gov/assessor" target="_blank">daviscountyutah.gov</a></td></tr>
+  <tr><td><strong>Salt Lake</strong></td><td>(385) 468-8000</td><td>Online, Mail, In-person</td><td><a href="https://slco.org/assessor/" target="_blank">slco.org/assessor</a></td></tr>
+  <tr><td><strong>Summit (Park City)</strong></td><td>(435) 336-3200</td><td>Mail, In-person</td><td><a href="https://www.summitcounty.org/assessor/" target="_blank">summitcounty.org</a></td></tr>
+  <tr><td><strong>Tooele</strong></td><td>(435) 843-3160</td><td>Mail, In-person</td><td><a href="https://tooelecountyutah.gov/assessor" target="_blank">tooelecountyutah.gov</a></td></tr>
+  <tr><td><strong>Utah (Provo)</strong></td><td>(801) 851-8244</td><td>Mail, In-person</td><td><a href="https://www.utahcounty.gov/dept/assessor/" target="_blank">utahcounty.gov</a></td></tr>
+  <tr><td><strong>Washington (St. George)</strong></td><td>(435) 634-5703</td><td>Mail, In-person</td><td><a href="https://www.washco.utah.gov/assessor/" target="_blank">washco.utah.gov</a></td></tr>
+  <tr><td><strong>Weber (Ogden)</strong></td><td>(801) 399-8572</td><td>Mail, In-person</td><td><a href="https://www.webercountyutah.gov/assessor/" target="_blank">webercountyutah.gov</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p style="margin-top:14px; font-size:0.85rem; color:var(--text-muted);">
+      Official Form PT-025: <a href="https://tax.utah.gov/forms/current/pt-025.pdf" target="_blank" style="color:var(--deep-blue);">Download from Utah Tax Commission </a> &nbsp;|&nbsp;
+      <a href="https://tax.utah.gov/property/relief" target="_blank" style="color:var(--deep-blue);">All county contacts (tax.utah.gov) </a>
+    </p>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <h2 class="section-title">Frequently Asked Questions</h2>
+    <div class="section-rule"></div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Who qualifies for the Disabled Veteran Exemption?</div>
+      <div class="faq-a">Any Utah resident veteran with a service-connected disability rating of at least 10% from the VA. You must own a primary residence or personal property in Utah. Honorable or general discharge required. Surviving spouses of veterans who were eligible at time of death may also qualify.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">How is the exemption amount calculated?</div>
+      <div class="faq-a">The exemption is pro-rated to your disability percentage. The 2026 maximum exempt assessed value is $535,459. Your county multiplies that by your disability rating to get your exemption amount, then applies the local tax rate. Example: 50% rating × $535,459 = $267,730 of value exempt from tax. At a 0.6% rate, that's roughly $1,606/year in savings.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">What if I have Individual Unemployability (IU)?</div>
+      <div class="faq-a">Veterans with a VA Individual Unemployability determination are treated as 100% disabled under Utah law, regardless of their assigned percentage. This means you qualify for the full $535,459 exemption — potentially thousands of dollars per year in savings. Bring your IU award letter when you apply.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Does this exemption apply to vehicles and personal property?</div>
+      <div class="faq-a">Yes. The Disabled Veteran Exemption can be applied to primary residence real property, personal property, or split across both. If your exemption amount exceeds your home's taxable value, ask your county assessor about applying the remainder to a registered vehicle.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">What is the Circuit Breaker program?</div>
+      <div class="faq-a">The Circuit Breaker is a separate Utah program for low-income seniors (age 66+) and renters. For 2025: homeowners with income under $85,246 can receive up to ~$1,412 in relief; renters with income under $42,623 can receive a renter refund. Apply online at tap.utah.gov or through your county assessor. This can often be stacked with veteran exemptions.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">What is the Blind Persons Exemption?</div>
+      <div class="faq-a">Utah offers a separate $11,500 taxable value reduction for residents with a visual acuity of 20/200 or less in the better eye (with correction), or a visual field of 20 degrees or less. Requires an ophthalmologist or optometrist letter. Must be renewed every 10 years. Can be stacked with veteran benefits if you qualify for both.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Why do some sources show $521,620 and others show $535,459?</div>
+      <div class="faq-a">Both figures are correct — for different years. $521,620 was the 2025 maximum. $535,459 is the 2026 maximum, adjusted annually for inflation. This site uses the 2026 figure for current-year applications. Always confirm the current cap with your county assessor when you apply.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Can I combine programs (stack exemptions)?</div>
+      <div class="faq-a">In many cases, yes. Veterans who are also low-income seniors may be able to receive both the Disabled Veteran Exemption and the Circuit Breaker. Blind veterans may qualify for both the blind exemption and the veteran exemption. Ask your county assessor specifically about stacking — they can tell you what's available in your county.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">What documents do I need to apply?</div>
+      <div class="faq-a">Typically: DD-214 (Certificate of Release/Discharge from Active Duty), VA letter confirming your disability rating and percentage, proof of Utah residency (driver's license or utility bill), and Form PT-025. Your county may have additional requirements — call ahead to confirm before visiting.</div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="about-section">
+      <h2>Why This Site Exists</h2>
+      <p>This tool was built by a military family and is not a government agency, not a lender, nor is anyone trying to sell you anything.</p>
+      <p>My mother served 12 years in the United States Marine Corps, was deployed to Iraq in 2004, and was honorably discharged. She is now a Civilian Technician with the Utah Army National Guard and a veteran with a service-connected disability rating. Several years after my parents purchased their home, they stumbled onto the fact that Utah offers a property tax exemption pro-rated to a veteran's disability percentage. They had no idea it existed. They applied, were approved, and haven't paid a dollar in property taxes on their home since. They save well over a thousand dollars every year.</p>
+      <p>That experience made us wonder. How many other veterans and military families are leaving this money on the table because no one told them it existed? The answer, turns out to be a lot.</p>
+      <p>I have been studying IT for the past few years and built this site to help get this information to the veterans and families who need it most. This site is free. It always will be. It is not legal advice, tax advice, or professional services of any kind. It is a guide to programs that already exist, built by people who wish they had found it sooner.</p>
+      <p>If it helps you, please share it with another veteran who might need it.</p>
+      <div class="about-sig">— Kai Bocanegra</div>
+    </div>
+  </section>
+
+  <div class="disclaimer">
+    <strong>Disclaimer:</strong> This website provides general informational guidance only and does not constitute legal advice, tax advice, or professional tax services. Exemption amounts, eligibility rules, and deadlines are subject to change. Always verify current program details directly with your county assessor or the Utah State Tax Commission at <a href="https://tax.utah.gov" target="_blank">tax.utah.gov</a> before applying. Nothing on this site creates a professional relationship of any kind.
+  </div>
+
+</main>
+
+<footer>
+  <p style="margin-bottom:10px;">
+    <a href="https://tax.utah.gov/property/relief" target="_blank">Utah Tax Commission — Property Tax Relief</a> &nbsp;|&nbsp;
+    <a href="https://tax.utah.gov/forms/current/pt-025.pdf" target="_blank">Form PT-025</a> &nbsp;|&nbsp;
+    <a href="https://tap.utah.gov" target="_blank">TAP Online Portal</a> &nbsp;|&nbsp;
+    Free VSO Help: (801) 326-2372 &nbsp;|&nbsp;
+    <a href="https://www.va.gov/vso/" target="_blank">Find a VSO</a>
+  </p>
+  <p style="margin-bottom:10px;">
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSdXj9KHSaEjEocKv49K5CQdLEwSEuJZpJYtCuRn-8JoGf7wxg/viewform?usp=publish-editor" target="_blank" style="color: #e8c96e; font-weight:600;">★ Did this help you? Tell us your story</a>
+  </p>
+  <p>This site is free and independent. Not affiliated with any government agency, lender, or commercial service. Additionally, this site uses anonymous analytics tools to understand how visitors use the site and improve the experience. No personal information is collected or sold.</p>
+</footer>
+
+<script>
+function checkEligibility() {
+  const status = document.getElementById('status').value;
+  const rating = document.getElementById('rating').value;
+  const proptype = document.getElementById('proptype').value;
+  const homevalue = parseFloat(document.getElementById('homevalue').value) || 0;
+
+  if (!status) { alert('Please select who is applying.'); return; }
+
+  // Track event
+  gtag('event', 'calculator_completed', {
+    'state': 'Utah',
+    'applicant_type': status,
+    'rating': rating,
+    'has_home_value': homevalue > 0
+  });
+
+  let html = '';
+
+  // --- VETERAN ---
+  if (status === 'veteran') {
+    if (!rating || rating === '0') {
+      html = buildResult(
+        'Wartime / General Veteran',
+        null,
+        'Without a VA disability rating, the Disabled Veteran Exemption does not apply. However, you may still qualify for other programs.',
+        ['Apply to the VA for a disability rating if you have any service-connected conditions — even a 10% rating qualifies you for this exemption.',
+         'Ask your county assessor about any local senior, low-income, or hardship relief programs.',
+         'Contact a VSO (Veteran Service Organization) at (801) 326-2372 — they help veterans file VA claims at no cost.'],
+        ['No current VA rating'],
+        'No property tax exemption available without a VA disability rating, but VSO assistance is free and you may have unclaimed VA benefits.'
+      );
+    } else if (rating === 'iu') {
+      const exemptVal = 535459;
+      const taxRate = 0.006;
+      const savings = homevalue > 0
+        ? Math.min(homevalue, exemptVal) * taxRate
+        : exemptVal * taxRate;
+      html = buildResult(
+        'Individual Unemployability (IU) — 100% Treatment',
+        savings,
+        'Veterans with IU status are treated as 100% disabled under Utah law and qualify for the full $535,459 exemption — the same as a 100%-rated veteran.',
+        ['Download Form PT-025 from tax.utah.gov/forms/current/pt-025.pdf',
+         'Gather your DD-214, VA IU award letter, and proof of Utah residency.',
+         'Submit to your county assessor by September 1, 2026.',
+         'Ask about stacking with any senior or Circuit Breaker programs if applicable.'],
+        ['IU = 100% treatment', 'Full $535,459 exemption', 'Real & personal property'],
+        null,
+        true
+      );
+    } else {
+      const ratingNum = parseInt(rating);
+      const exemptVal = 535459;
+      const taxRate = 0.006;
+      const exemptAmount = exemptVal * (ratingNum / 100);
+      const savings = homevalue > 0
+        ? Math.min(homevalue, exemptAmount) * taxRate
+        : exemptAmount * taxRate;
+      const ratingLabel = {10:'10%–29%', 30:'30%–49%', 50:'50%–69%', 70:'70%–89%', 90:'90%–99%', 100:'100%'}[ratingNum];
+      html = buildResult(
+        `Disabled Veteran Exemption — ${ratingLabel} Rating`,
+        savings,
+        `At a ${ratingLabel} rating, your exempt assessed value is approximately <strong>$${Math.round(exemptAmount).toLocaleString()}</strong> (${ratingNum}% × $535,459 cap). ${homevalue > 0 ? `Your home value of $${homevalue.toLocaleString()} means your savings estimate is based on your actual home.` : 'Enter your home value above for a more precise estimate.'}`,
+        ['Download Form PT-025 from <a href="https://tax.utah.gov/forms/current/pt-025.pdf" target="_blank">tax.utah.gov</a>.',
+         'Gather your DD-214, VA rating letter showing your current disability percentage, and proof of Utah residency.',
+         'Submit to your county assessor\'s office by <strong>September 1, 2026</strong>.',
+         'Ask your assessor if any remaining exemption can be applied to personal property or a vehicle.'],
+        [`${ratingLabel} disability`, 'Pro-rated exemption', 'Real & personal property eligible']
+      );
+    }
+  }
+
+  // --- SURVIVING SPOUSE ---
+  else if (status === 'spouse') {
+    html = buildResult(
+      'Surviving Spouse of Disabled Veteran',
+      null,
+      'Utah extends the Disabled Veteran Property Tax Exemption to the surviving spouse of a veteran who was eligible for the exemption at the time of death. You must not have remarried.',
+      ['Obtain documentation showing your spouse\'s VA disability rating at time of death.',
+       'Download Form PT-025 and include a copy of the death certificate.',
+       'Contact your county assessor — the exemption level depends on the veteran\'s disability rating.',
+       'Free VSO help is available at (801) 326-2372.'],
+      ['Surviving spouse', 'Same exemption level as veteran', 'No remarriage']
+    );
+  }
+
+  // --- BLIND ---
+  else if (status === 'blind') {
+    const annualSavings = 11500 * 0.006;
+    html = buildResult(
+      'Blind Persons Exemption',
+      annualSavings,
+      'Utah offers a $11,500 taxable value reduction for residents with corrected visual acuity of 20/200 or less in the better eye, or a visual field of 20 degrees or less.',
+      ['Obtain a written statement from an ophthalmologist or optometrist confirming your visual acuity.',
+       'Download Form PT-025 and submit to your county assessor with the physician letter.',
+       'Deadline: September 1, 2026.',
+       'This exemption renews every 10 years — note the renewal date.',
+       'If you are also a veteran with a disability rating, ask about stacking both exemptions.'],
+      ['$11,500 taxable value reduction', '10-year renewal', 'Can stack with veteran exemption']
+    );
+  }
+
+  // --- SENIOR/CIRCUIT BREAKER ---
+  else if (status === 'senior') {
+    html = buildResult(
+      'Circuit Breaker — Senior / Low-Income Relief',
+      1412,
+      'Utah\'s Circuit Breaker program reduces property taxes for low-income seniors (age 66+) and provides a renter refund for low-income renters. 2025 income thresholds: homeowners under $85,246; renters under $42,623.',
+      ['Apply online at <a href="https://tap.utah.gov" target="_blank">tap.utah.gov</a> — the easiest method.',
+       'Or submit a paper application to your county assessor by September 1.',
+       'Gather: proof of age (65 or older by December 31), proof of income, and property tax statement.',
+       'If you are also a veteran with a disability rating, ask your county assessor about combining programs.'],
+      ['Age 66+ required', 'Income under $85,246', 'Up to ~$1,412 savings', 'Renters eligible too']
+    );
+  }
+
+  const resultDiv = document.getElementById('result');
+  resultDiv.innerHTML = html;
+  resultDiv.style.display = 'block';
+  resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function buildResult(title, savings, detail, steps, pills, noSavingsNote, iuNote) {
+  const savingsHtml = savings
+    ? `<div class="savings-badge">~$${Math.round(savings).toLocaleString()}/yr</div>`
+    : `<div class="savings-badge" style="font-size:1rem; padding:10px 14px;">Verify with County</div>`;
+
+  const pillsHtml = pills.map(p => `<span class="pill pill-blue">${p}</span>`).join('');
+const stepsHtml = steps.map(s => `<li><span>${s}</span></li>`).join('');
+  const iuNoteHtml = iuNote
+    ? `<div class="iu-note">⭐ <strong>IU Status:</strong> Utah law treats Individual Unemployability the same as a 100% rating. Bring your IU award letter when you apply — the county assessor must honor it.</div>`
+    : '';
+
+  const stackHtml = `<div class="stack-note">💡 <strong>Stack your benefits:</strong> You may qualify for more than one program. Ask your county assessor about combining the veteran exemption with the Circuit Breaker (senior/low-income) or Blind Persons Exemption.</div>`;
+
+  return `
+  <div class="result-box">
+    <div class="result-header">
+      <div>
+        <div class="result-title">${title}</div>
+        <div class="pills">${pillsHtml}</div>
+      </div>
+      ${savingsHtml}
+    </div>
+    ${iuNoteHtml}
+    <div class="result-detail">${detail}</div>
+    ${noSavingsNote ? `<div class="result-detail" style="color:var(--text-muted); font-size:0.9rem;">${noSavingsNote}</div>` : ''}
+    <div class="result-steps">
+      <h4>Your Next Steps</h4>
+      <ol class="steps-list">${stepsHtml}</ol>
+    </div>
+    ${stackHtml}
+  </div>`;
+}
+
+function toggleFaq(el) {
+  el.classList.toggle('open');
+  el.nextElementSibling.classList.toggle('open');
+}
+
+// Track outbound links
+document.addEventListener('click', function(e) {
+  const link = e.target.closest('a');
+  if (link && link.hostname !== window.location.hostname && link.href) {
+    gtag('event', 'outbound_link_click', {
+      'link_url': link.href,
+      'link_text': link.textContent.trim().substring(0, 50)
+    });
+  }
+});
+</script>
+</body>
+</html>
